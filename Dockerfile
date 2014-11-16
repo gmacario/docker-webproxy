@@ -29,7 +29,16 @@ ENV APACHE_LOG_DIR /var/log/apache2
 # TODO: Add /etc/apache2/sites-available/maxlab
 # TODO: Add /etc/apache2/sites-available/maxlab-https
 
-EXPOSE 80
+# Create a Self-Signed SSL Certificate
+# See https://www.digitalocean.com/community/tutorials/how-to-create-a-ssl-certificate-on-apache-for-ubuntu-14-04
+
+RUN mkdir -p /etc/apache2/ssl
+RUN echo "If you do not have a SSL Certificate, create it with the following command"
+RUN echo "openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout apache.key -out apache.crt"
+ADD apache.key /etc/apache2/ssl/apache.key
+ADD apache.crt /etc/apache2/ssl/apache.crt
+
+EXPOSE 80 443
 
 # See https://github.com/phusion/baseimage-docker#adding_additional_daemons
 RUN mkdir -p /etc/service/apache2
