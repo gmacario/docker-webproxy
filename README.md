@@ -19,7 +19,7 @@ Prerequisites
 1. Create a SSL Certificate for your website
    You may use the following command to generate a self-signed SSL key:
 
-    $ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout apache.key -out apache.crt
+        $ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout apache.key -out apache.crt
 
 2. Review and/or customize run-apache.sh
 
