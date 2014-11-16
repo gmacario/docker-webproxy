@@ -10,25 +10,43 @@ Copyright 2014, [Gianpaolo Macario](https://github.com/gmacario/)
 System Requirements
 -------------------
 
-* [Docker](http://www.docker.io) - Tested with v1.1.0
-* One OS supported by Docker - Tested with Ubuntu server 14.04.1
+* [Docker](http://www.docker.io) - Tested with v1.3.0
+* One OS supported by Docker - Tested with Ubuntu server 14.04.1 (64-bit)
+
+Prerequisites
+-------------
+
+1. Create a SSL Certificate for your website
+   You may use the following command to generate a self-signed SSL key:
+
+    $ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout apache.key -out apache.crt
+
+2. Review and/or customize run-apache.sh
 
 Building the Docker image
 -------------------------
 
-    docker build -t gmacario/webproxy .
+    $ docker build -t _imagename_ .
+
+Example:
+
+    $ docker build -t gmacario/maxlab-webproxy .
 
 Running the Docker image
 ------------------------
 
-    docker run -d -p 80:80 -h maxlab.polito.it gmacario/webproxy
+    $ docker run -d -p 80:80 -p 443:443 -h _svrname_ _imagename_
+
+Example:
+
+    $ docker run -d -p 80:80 -p 443:443 -h maxlab.polito.it gmacario/maxlab-webproxy
 
 Debugging
 ---------
 
-    docker run -t -i -p 80:80 -h maxlab.polito.it gmacario/webproxy /bin/bash
+    $ docker run -t -i -p 80:80 -p 443:443 -h _svrname_ _imagename_ /bin/bash
 
-Then launch the services manually - i.e.
+Then inside the container launch the services manually - i.e.
 
     /etc/service/apache2/run
 
@@ -37,8 +55,8 @@ See https://github.com/jpetazzo/nsenter for details.
 
 Alternatively you may enable a shell login via SSH:
 
-    docker run -p 80:80 -h maxlab.polito.it gmacario/webproxy /sbin/my_init --enable-insecure-key
+    $ docker run ... _imagename_ /sbin/my_init --enable-insecure-key
 
-then login via SSH using the private key displayed when the container is started
+then login via SSH using the private key displayed when the container is started.
 
-EOF
+<!-- EOF -->
