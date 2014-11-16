@@ -8,17 +8,21 @@ set -e
 
 a2enmod proxy proxy_http
 
-# Configure site "http://maxlab.polito.it/"
-if [ ! -e /var/www/maxlab.polito.it ]; then
-    # Populate website contents
-    cd /var/www
+# Populate/update contents for site "http://maxlab.polito.it/"
+cd /var/www && if [ ! -e /var/www/maxlab.polito.it ]; then
     git clone https://github.com/gmacario/maxlab.polito.it.git
     chown -R www-data maxlab.polito.it
+else
+    cd maxlab.polito.it && git pull --all && cd -
+    chown -R www-data maxlab.polito.it
 fi
+# Configure site "http://maxlab.polito.it/"
 if [ ! -e /etc/apache2/sites-available/maxlab.conf ]; then
     cd /etc/apache2/sites-available
-    curl https://raw.githubusercontent.com/gmacario/gm-hostconfig/master/mv-linux-powerhorse/etc/apache2/sites-available/maxlab >maxlab.conf.ORIG
-    awk '/DocumentRoot/ {print "\tDocumentRoot /var/www/maxlab.polito.it"; next}
+    curl -o maxlab.conf.ORIG \
+        https://raw.githubusercontent.com/gmacario/gm-hostconfig/master/maxlab-webproxy/etc/apache2/sites-available/maxlab
+    awk '
+/DocumentRoot/ {print "\tDocumentRoot /var/www/maxlab.polito.it"; next}
 // {print $0}
 ' maxlab.conf.ORIG >maxlab.conf
     cd /etc/apache2/sites-enabled && ln -sf ../sites-available/maxlab.conf
