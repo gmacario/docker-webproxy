@@ -12,9 +12,6 @@ ENV HOME /root
 # init system will auto-generate one during boot.
 RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
 
-## Use baseimage-docker's init system.
-#CMD ["/sbin/my_init"]
-
 # ...put your own build instructions here...
 
 # From http://www.kstaken.com/blog/2013/07/06/how-to-run-apache-under-docker/
@@ -45,10 +42,8 @@ RUN mkdir -p /etc/service/apache2
 ADD run-apache2.sh /etc/service/apache2/run
 RUN chmod 755 /etc/service/apache2/run
 
-#ENTRYPOINT ["/sbin/my_init"]
-#ENTRYPOINT ["/usr/sbin/apache2"]
-#CMD ["-D", "FOREGROUND"]
-#CMD ["-V"]
+## Use baseimage-docker's init system.
+#CMD ["/sbin/my_init"]
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
