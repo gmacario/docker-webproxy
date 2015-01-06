@@ -1,6 +1,8 @@
 docker-webproxy
 ===============
 
+[![PullReview stats](https://www.pullreview.com/github/gmacario/docker-webproxy/badges/master.svg?)](https://www.pullreview.com/github/gmacario/docker-webproxy/reviews/master)
+
 [Docker](http://www.docker.io/) project to deploy an instance
 of [Apache](http://www.apache.org/) serving as web proxy
 to multiple web applications which are not directly exposed to the Internet.
