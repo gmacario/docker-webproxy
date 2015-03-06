@@ -7,7 +7,7 @@ docker-webproxy
 of [Apache](http://www.apache.org/) serving as web proxy
 to multiple web applications which are not directly exposed to the Internet.
 
-Copyright 2014, [Gianpaolo Macario](https://github.com/gmacario/)
+Copyright 2014-2015, [Gianpaolo Macario](https://github.com/gmacario/)
 
 System Requirements
 -------------------
