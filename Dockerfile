@@ -4,6 +4,8 @@
 # a list of version numbers.
 FROM phusion/baseimage:latest
 
+MAINTAINER Gianpaolo Macario <gmacario@gmail.com>
+
 # Set correct environment variables.
 ENV HOME /root
 
